@@ -1,0 +1,32 @@
+#Left side is the index of profile image landmarks (1-based), on the right is the indices of 3D model's vertices.
+[left_profile_mappings]
+25 = 610
+3 = 114
+15 = 35
+16 = 33 #chin bottom
+1 = 438
+9 = 812
+7 = 329
+11 = 442
+12 = 411
+23 = 658
+21 = 590
+14 = 332
+4 = 270
+5 = 537
+
+[right_profile_mappings]
+25 = 177
+3 = 114
+15 = 35
+16 = 33 #chin bottom
+1 = 438
+9 = 398
+7 = 329
+11 = 442
+12 = 411
+23 = 225
+21 = 157
+14 = 332
+4 = 270
+5 = 100
