@@ -26,9 +26,9 @@ The frontal face image is automatically annotated with Dlib library. You can cal
 
 Run `test\fitting_test.py` with default imput images, you should get a picture discribes the accuracy of the fitting.
 
-![fitting result img]()
+![fitting result img](https://raw.githubusercontent.com/Yinghao-Li/3DMM-fitting/add/test/00029ba010_960521-outcome.jpg)
 
 This picture will be saved in the `test\` folder, along with the generated 3D model as ply file.
 
-![fitting result 3D]()
+![fitting result 3D](https://raw.githubusercontent.com/Yinghao-Li/3DMM-fitting/add/test/3D-captured.PNG)
 
