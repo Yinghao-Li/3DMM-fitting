@@ -41,14 +41,14 @@ def read_pts(filename: str) -> List[List[float]]:
     return landmarks
 
 
-def manual_marker(pic_path: str, num_marks: int = 26) -> None:
+def manual_marker(path: str, num_marks: int = 26) -> None:
     """
     Manually mark a picture. The result will be stored in a pts file with the name of the picture.
     Click mouse left button: Mark a point;
     Click mouse right button: Cancel the last mark.
     ESC: Done. Only functional when the number of marks equals to param 'num_marks'.
 
-    :param pic_path: The full path of picture (including filename).
+    :param path: The full path of picture (including filename).
     :param num_marks: The number of expected marks.
     :return: None.
     """
@@ -89,15 +89,15 @@ def manual_marker(pic_path: str, num_marks: int = 26) -> None:
             print('Point {} has been drawn.'.format(param_num_point[0]))
 
     # 查找是否存在文件，如果存在则打开
-    if os.path.exists(pic_path) and os.path.isfile(pic_path):
-        file_name = os.path.basename(pic_path)
+    if os.path.exists(path) and os.path.isfile(path):
+        file_name = os.path.basename(path)
         # 对于每一个图片文件重置参数
         num_point = [0]
         marks = []
         pre_point_color = []
         message_flag = [False]
 
-        img = cv2.imread(pic_path)
+        img = cv2.imread(path)
         width = np.shape(img)[1]
         height = np.shape(img)[0]
         scale_param = 900 / height if height >= width else 900 / width
@@ -118,7 +118,10 @@ def manual_marker(pic_path: str, num_marks: int = 26) -> None:
         marks = np.array(marks, copy=False, dtype=float)
         marks = marks / scale_param
 
-        save_pts(marks, pic_path[:pic_path.rindex('.')])
+        if ':' in path.split(os.sep)[0] or path.split(os.sep)[0] == '':
+            save_pts(marks, path)
+        else:
+            save_pts(marks, os.path.join(os.getcwd(), path.split('.')[0]))
         return None
 
     else:
@@ -126,17 +129,16 @@ def manual_marker(pic_path: str, num_marks: int = 26) -> None:
         return None
 
 
-def frontal_face_marker(pic_path: str, model_path: Optional[str] = r'..\py_share') -> np.ndarray:
+def frontal_face_marker(path: str) -> np.ndarray:
     """
     Automatically mark the frontal picture of human face with Dlib Library.
     The result will be stored in a pts file with the name of the picture.
 
-    :param pic_path: The full path of picture (including filename).
-    :param model_path: The path of Dlib shape predictor model.
+    :param path: The full path of picture (including filename).
     :return: None
     """
 
-    predictor_path = os.path.join(model_path, 'shape_predictor_68_face_landmarks.dat')
+    predictor_path = r"\path\to\face_landmarks\shape_predictor_68_face_landmarks.dat"
     # 使用官方提供的模型构建特征提取器
 
     predictor = dlib.shape_predictor(predictor_path)
@@ -145,9 +147,9 @@ def frontal_face_marker(pic_path: str, model_path: Optional[str] = r'..\py_share
     detector = dlib.get_frontal_face_detector()
 
     # 查找是否存在文件，如果存在则打开
-    if os.path.exists(pic_path) and os.path.isfile(pic_path):
+    if os.path.exists(path) and os.path.isfile(path):
 
-        img = cv2.imread(pic_path)
+        img = cv2.imread(path)
 
         dets = detector(img, 1)
 
@@ -155,11 +157,14 @@ def frontal_face_marker(pic_path: str, model_path: Optional[str] = r'..\py_share
         points = predictor(img, bbox)
         marks = np.array([[p.x, p.y] for p in points.parts()], copy=False, dtype=float)
 
-        save_pts(marks, pic_path[:pic_path.rindex('.')])
+        if ':' in path.split(os.sep)[0] or path.split(os.sep)[0] == '':
+            save_pts(marks, path)
+        else:
+            save_pts(marks, os.path.join(os.getcwd(), path[:path.rindex('.')]))
         return marks
 
     else:
-        print('error: Image file not exist!')
+        print('error: file not exist!')
 
 
 def mark_modifier(pic_path: str, create_duplicate: Optional[bool] = False) -> None:
@@ -171,7 +176,7 @@ def mark_modifier(pic_path: str, create_duplicate: Optional[bool] = False) -> No
     :return: None.
     """
 
-    pts_name = pic_path[:pic_path.rfind('.')] + '.pts'
+    pts_name = pic_path.split('.')[0] + '.pts'
     # 装载检查过的文件的文件名
     if os.path.isfile(pic_path) and os.path.isfile(pts_name):
         img = cv2.imread(pic_path)
@@ -182,10 +187,7 @@ def mark_modifier(pic_path: str, create_duplicate: Optional[bool] = False) -> No
         pts = (np.array(read_pts(pts_name)) * scale_param).astype(int).tolist()
         num_point = len(pts)
     else:
-        if not os.path.isfile(pic_path):
-            print('Error: Image file not exist!')
-        if not os.path.isfile(pts_name):
-            print('Error: PTS file not exist!')
+        print('Error: File not exist!')
         return None
 
     line_length = 11
@@ -253,7 +255,7 @@ def mark_modifier(pic_path: str, create_duplicate: Optional[bool] = False) -> No
             img[p[1] - half_length: p[1] + half_length + 1, p[0] - half_length: p[0] + half_length + 1, :].copy()
         img[p[1] - half_length:p[1] + half_length + 1, p[0]:p[0] + 1, :] = line_yellow.copy()
         img[p[1]:p[1] + 1, p[0] - half_length:p[0] + half_length + 1, :] = line_red.copy()
-        print("The {}th landmark has coordinates ({},{})".format(t+1, p[0], p[1]))
+        print("The {}th landmark has coordinates ({},{})".format(t, p[0], p[1]))
 
     file_name = os.path.basename(pic_path)
     cv2.namedWindow(file_name, cv2.WINDOW_AUTOSIZE)

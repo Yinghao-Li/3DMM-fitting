@@ -708,10 +708,12 @@ def draw_wireframe_with_depth(
 
     if type(landmark_mapper) is LandmarkMapper.LandmarkMapper:
         for i in landmark_mapper.landmark_mappings.values():
+            print('!!!{}'.format(i))
             p = glm.project(mesh.vertices[i], modelview, projection, viewport)[:2] * scale
             cv2.circle(img, (int(p[0]), int(p[1])), 3, (0, 0, 255), -1)
     else:
         for i in landmark_mapper.right_mapper.values():
+            print('???{}'.format(i))
             p = glm.project(mesh.vertices[i], modelview, projection, viewport)[:2] * scale
             cv2.circle(img, (int(p[0]), int(p[1])), 3, (0, 0, 255), -1)
 
