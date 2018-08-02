@@ -28,14 +28,14 @@ s = 2000 / height if height >= width else 2000 / width
 scale_param = 900 / height if height >= width else 900 / width
 # scale_param = 1
 
-py_model = MorphableModel.load_model(r"..\py_share\py_sfm_shape_3448.bin")
-py_blendshapes = Blendshape.load_blendshapes(r"..\py_share\py_expression_blendshapes_3448.bin")
-py_landmark_mapper = LandmarkMapper.LandmarkMapper(r'..\py_share\ibug_to_sfm.txt')
-py_edge_topology = EdgeTopology.load_edge_topology(r'..\py_share\py_sfm_3448_edge_topology.json')
-py_contour_landmarks = contour_correspondence.ContourLandmarks()
-py_contour_landmarks.load(r'..\py_share\ibug_to_sfm.txt')
-py_model_contour = contour_correspondence.ModelContour()
-py_model_contour.load(r'..\py_share\sfm_model_contours.json')
+morphable_model = MorphableModel.load_model(r"..\py_share\py_sfm_shape_3448.bin")
+blendshapes = Blendshape.load_blendshapes(r"..\py_share\py_expression_blendshapes_3448.bin")
+landmark_mapper = LandmarkMapper.LandmarkMapper(r'..\py_share\ibug_to_sfm.txt')
+edge_topology = EdgeTopology.load_edge_topology(r'..\py_share\py_sfm_3448_edge_topology.json')
+contour_landmarks = contour_correspondence.ContourLandmarks()
+contour_landmarks.load(r'..\py_share\ibug_to_sfm.txt')
+model_contour = contour_correspondence.ModelContour()
+model_contour.load(r'..\py_share\sfm_model_contours.json')
 profile_landmark_mapper = LandmarkMapper.ProfileLandmarkMapper(r'..\py_share\profile_to_sfm.txt')
 
 frontal_landmarks = []
@@ -51,8 +51,8 @@ for x in profile_landmark_mapper.right_mapper.keys():
     profile_landmarks.append(Landmark.Landmark(x, [coor[0] * s, coor[1] * s]))
 
 py_mesh, frontal_rendering_params, profile_rendering_params = fitting.fit_front_and_profile(
-    py_model, py_blendshapes, frontal_landmarks, py_landmark_mapper, profile_landmarks, profile_landmark_mapper,
-    round(width * s), round(height * s), py_edge_topology, py_contour_landmarks, py_model_contour, lambda_p=20,
+    morphable_model, blendshapes, frontal_landmarks, landmark_mapper, profile_landmarks, profile_landmark_mapper,
+    round(width * s), round(height * s), edge_topology, contour_landmarks, model_contour, lambda_p=20,
     num_iterations=10)
 
 profile_img = cv2.resize(profile_img, (round(width * scale_param), round(height * scale_param)),
@@ -65,7 +65,7 @@ frontal_img = cv2.resize(frontal_img, (round(width * scale_param), round(height 
                          interpolation=cv2.INTER_CUBIC)
 render.draw_wireframe_with_depth(
     frontal_img, py_mesh, frontal_rendering_params.get_modelview(), frontal_rendering_params.get_projection(),
-    RenderingParameters.get_opencv_viewport(width * s, height * s), py_landmark_mapper, scale_param / s)
+    RenderingParameters.get_opencv_viewport(width * s, height * s), landmark_mapper, scale_param / s)
 
 for lm in frontal_landmarks:
     cv2.rectangle(
