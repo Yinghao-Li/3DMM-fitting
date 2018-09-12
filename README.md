@@ -35,3 +35,5 @@ This picture will be saved in the `test\` folder, along with the generated 3D mo
 
 ![fitting result 3D](https://github.com/Yinghao-Li/3DMM-fitting/blob/master/test/3D-captured.PNG)
 
+For those who can read Chinese, my [graduation thesis](https://drive.google.com/open?id=1rapFYz9BfiPTtUUZGFKcDlIJ-mU-R3Ul) may be a better source to get a much more complete instruction and insight on this project.
+
