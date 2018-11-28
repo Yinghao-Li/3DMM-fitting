@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Mar 20 12:31:16 2018
-
-@author: For_Gondor
+@author: Yinghao Li
 """
 
 import json

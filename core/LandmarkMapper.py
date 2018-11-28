@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Mar 15 10:10:28 2018
-
-@author: For_Gondor
+@author: Yinghao Li
 """
 
 import toml  # see https://github.com/uiri/toml

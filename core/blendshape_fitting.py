@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Mar 19 13:35:00 2018
-
-@author: For_Gondor
+@author: Yinghao li
 """
 
 from core import Blendshape

@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon July 9 22:59:32 2018
-
-@author: For_Gondor
+@author: Yinghao Li
 """
 
 import sys

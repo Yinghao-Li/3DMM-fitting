@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun April 29 12:29 2018
-
-@author: For_Gondor
+@author: Yinghao Li
 """
 
 from core import LandmarkMapper, glm, utils, Mesh

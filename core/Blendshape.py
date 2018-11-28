@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Mar 15 12:45:24 2018
-
-@author: For_Gondor
+@author: Yinghao Li
 """
 
 import pickle

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Mar 26 18:11:15 2018
+@author: Yinghao Li
 
-@author: For_Gondor
+Transfer 3DMM to file format readily used by Python
 """
 
 import eos

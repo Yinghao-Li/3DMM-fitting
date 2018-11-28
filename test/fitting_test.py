@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun May 6 13:55:03 2018
-
-@author: For_Gondor
+@author: Yinghao Li
 """
 
 import os

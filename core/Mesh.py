@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Mar 14 14:56:33 2018
-
-@author: For_Gondor
+@author: Yinghao Li
 """
 
         

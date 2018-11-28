@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Mar 24 12:00:03 2018
-
-@author: For_Gondor
+@author: Yinghao Li
 """
 
 from core import closest_edge_fitting, Blendshape, contour_correspondence, blendshape_fitting, EdgeTopology, \

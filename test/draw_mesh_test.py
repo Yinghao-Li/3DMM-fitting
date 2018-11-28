@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue May 15 9:49:03 2018
-
-@author: For_Gondor
+@author: Yinghao Li
 """
 
 from core import MorphableModel
