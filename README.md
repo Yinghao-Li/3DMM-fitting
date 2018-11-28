@@ -12,7 +12,26 @@ The 3D model fitting part is mainly based on [eos](https://github.com/patrikhube
 * [Numpy](http://www.numpy.org/)
 * [toml](https://github.com/uiri/toml)
 
-The code has only been tested on Windows10 with Anaconda Python.
+## Face detection and landmark regression
+
+For frontal face detection and landmark regression, please refer to Dlib. Usage example can be found at `assist\marker.py`.
+
+The training of profile detector and profile landmark AAM model is based on [Menpo Project](https://www.menpo.org/). The installation of menpo lib can be found at their webpage. As the project has not been updated for a long time, some of it's library dependency is samewhat out-of-date and maybe conflict with current Python libraries. It is recommended to install their lib in a new conda environment with python 3.5, in case the already installed libs get messed up.
+
+```
+$ conda create -n menpo python=3.5
+$ <conda> activate menpo
+
+$ conda install -c menpo menpo
+$ conda install -c menpo menpofit
+$ conda install -c menpo menpodetect
+$ conda install -c menpo menpowidgets
+```
+other menpo libs are not used in this project
+
+After installing this, some minor updates and conflict solving are also need to be done to ensure all menpo function works properly.
+
+The code for the training of profile detection model and AAM for profile landmark regression can be found at `\test\Menpo-Display.ipynb`.
 
 ## Instructions
 
@@ -34,6 +53,4 @@ Run `test\fitting_test.py` with default imput images, you should get a picture d
 This picture will be saved in the `test\` folder, along with the generated 3D model as ply file.
 
 ![fitting result 3D](https://github.com/Yinghao-Li/3DMM-fitting/blob/master/test/3D-captured.PNG)
-
-For those who can read Chinese, my [graduation thesis](https://drive.google.com/open?id=1rapFYz9BfiPTtUUZGFKcDlIJ-mU-R3Ul) may be a better source to get a much more complete instruction and insight on this project.
 
