@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tuesday May 01 12:57:24 2018
+@author: Yinghao li
 
-@author: For_Gondor
+Automatically or manually annotate the landmarks.
 """
 
 import cv2

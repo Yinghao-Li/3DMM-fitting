@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Mar 25 10:20:07 2018
+@author: Yinghao Li
 
-@author: For_Gondor
+Text search in files
 """
 
 import os
