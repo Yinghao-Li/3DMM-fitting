@@ -6,11 +6,12 @@ The 3D model fitting part is mainly based on [eos](https://github.com/patrikhube
 
 ## Library requirements
 
-* Python3.6
+* Python3.5
 * [OpenCV](http://opencv.org/)
 * [Dlib](http://dlib.net/)
 * [Numpy](http://www.numpy.org/)
 * [toml](https://github.com/uiri/toml)
+* [menpo](https://www.menpo.org/)
 
 ## Face detection and landmark regression
 
