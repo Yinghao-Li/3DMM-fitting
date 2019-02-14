@@ -59,8 +59,7 @@ They are legacies and not used for the demonstration for this project so I do no
 
 Run `test\fitting_test.py` with default imput images, you should get a picture discribes the accuracy of the fitting.
 
-![fitting result img](https://github.com/Yinghao-Li/3DMM-fitting/blob/master/test/00029ba010_960521-outcome.jpg
-){:height="50%" width="50%"}
+ <img src="https://github.com/Yinghao-Li/3DMM-fitting/blob/master/test/00029ba010_960521-outcome.jpg" width = "500" height = "300" alt="fitting result img" align=center />
 
 This picture will be saved in the `test\` folder, along with the generated 3D model as ply file.
 
