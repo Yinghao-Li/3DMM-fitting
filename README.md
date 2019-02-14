@@ -64,5 +64,5 @@ Run `test\fitting_test.py` with default imput images, you should get a picture d
 
 This picture will be saved in the `test\` folder, along with the generated 3D model as ply file.
 
-![fitting result 3D](https://github.com/Yinghao-Li/3DMM-fitting/blob/master/test/3D-captured.PNG){:height="50%" width="50%"}
+ <img src="https://github.com/Yinghao-Li/3DMM-fitting/blob/master/test/3D-captured.PNG" width = "500" height = "300" alt="fitting result 3D" align=center />
 
