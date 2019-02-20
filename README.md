@@ -55,7 +55,7 @@ The frontal face image is automatically annotated with Dlib library. You can cal
 ## `.py` in `test\` folder
 They are legacies and not used for the demonstration for this project so I do not guarantee their functionality. I strongly suggest you not to waste your time on them.
 
-## Presentation
+## Demonstration
 
 Run `test\fitting_test.py` with default imput images, you should get a picture discribes the accuracy of the fitting.
 
@@ -64,4 +64,6 @@ Run `test\fitting_test.py` with default imput images, you should get a picture d
 This picture will be saved in the `test\` folder, along with the generated 3D model as ply file.
 
  <img src="https://github.com/Yinghao-Li/3DMM-fitting/blob/master/test/3D-captured.PNG" width = "500" height = "300" alt="fitting result 3D" align=center />
+
+[Video Demo Link](https://youtu.be/U2EfZidSws8)
 
