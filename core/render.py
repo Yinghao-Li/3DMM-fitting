@@ -371,15 +371,18 @@ def get_affine_transform(src: np.ndarray, dst: np.ndarray) -> np.ndarray:
     """
     assert len(src) == len(dst) and len(src) == 3
 
-    a = np.zeros([6, 6])
-    b = np.zeros(6)
+#    a = np.zeros([6, 6])
+#    b = np.zeros(6)
 
-    a[0::2, :3] = np.hstack([src, np.ones([3, 1])])
-    a[1::2, 3:] = np.hstack([src, np.ones([3, 1])])
-    b = b.reshape([6])
+#    a[0::2, :3] = np.hstack([src, np.ones([3, 1])])
+#    a[1::2, 3:] = np.hstack([src, np.ones([3, 1])])
+#    b = b.reshape([6])
 
-    x = np.linalg.lstsq(a, b)[0]
-    x.reshape([2, 3])
+#    x = np.linalg.lstsq(a, b)[0]
+#    x = np.reshape(x, (2, 3))
+    pts1 = np.float32([[src[0][0], src[0][1]], [src[1][0], src[1][1]], [src[2][0], src[2][1]]])
+    pts2 = np.float32([[dst[0][0], dst[0][1]], [dst[1][0], dst[1][1]], [dst[2][0], dst[2][1]]])
+    x = cv2.getAffineTransform(pts1, pts2)
     return x
 
 
