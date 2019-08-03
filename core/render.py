@@ -168,11 +168,13 @@ def raster_triangle_affine(triangle: TriangleToRasterize, colorbuffer: np.ndarra
             gamma = implicit_line(x, y, triangle.v0.position, triangle.v1.position) * one_over_v2_to_line01
 
             # if pixel (x, y) is inside the triangle or on one of its edges
-            if alpha >= 0 and beta >= 0 and gamma >= 0:
+            if alpha >= 0 and beta >= 0 and gamma >= 0 and 1 - alpha - beta - gamma < 0.001:
                 pixel_index_row = yi
                 pixel_index_col = xi
 
                 z_affine = alpha * triangle.v0.position[2] + triangle.v1.position[2] + triangle.v2.position[2]
+                if z_affine > depthbuffer[pixel_index_row, pixel_index_col]:
+                    continue
                 # attributes interpolation
                 # pixel_color is in RGB, v.color are RGB
                 pixel_color = alpha * triangle.v0.color + beta * triangle.v1.color + gamma * triangle.v2.color
