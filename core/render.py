@@ -492,8 +492,8 @@ def extract_tecture(mesh: Mesh.Mesh, affine_camera_matrix: np.ndarray, image: np
 
         # We now loop over all pixels in the triangle and select, depending on the mapping type, the
         # corresponding texel(s) in the source image
-        for x in range(np.min(dst_tri[:, 0]), np.max(dst_tri[:, 0])):
-            for y in range(np.min(dst_tri[:, 1]), np.max(dst_tri[:, 1])):
+        for x in range(int(np.min(dst_tri[:, 0])), int(np.max(dst_tri[:, 0]))):
+            for y in range(int(np.min(dst_tri[:, 1])), int(np.max(dst_tri[:, 1]))):
                 if is_point_in_triangle(np.array([x, y]), dst_tri[0], dst_tri[1], dst_tri[2]):
                     # As the coordinates of the transformed pixel in the image will most likely not lie
                     # on a texel, we have to choose how to calculate the pixel colors depending on the next texels
@@ -594,7 +594,7 @@ def extract_tecture(mesh: Mesh.Mesh, affine_camera_matrix: np.ndarray, image: np
 
                         if round(src_texel[1]) < np.shape(image)[0] and round(src_texel[1]) < np.shape(image)[1] \
                                 and round(src_texel[0]) > 0 and round(src_texel[1]) > 0:
-                            isomap[y, x, :3] = image[round(src_texel[1]), round(src_texel[0])]
+                            isomap[y, x, :3] = image[int(round(src_texel[1])), int(round(src_texel[0]))]
                             isomap[y, x, 3] = np.uint8(alpha_value)
 
     return isomap
