@@ -250,7 +250,7 @@ def render_affine(mesh: Mesh.Mesh, affine_camera_matrix: np.ndarray, viewport_wi
             continue
 
         t = TriangleToRasterize(projected_vertices[0], projected_vertices[1], projected_vertices[2],
-                                bounding_box[0], bounding_box[2], bounding_box[1], bounding_box[4])
+                                bounding_box[0], bounding_box[2], bounding_box[1], bounding_box[3])
 
         raster_triangle_affine(t, colorbuffer, depthbuffer)
     return colorbuffer, depthbuffer
