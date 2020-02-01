@@ -168,11 +168,13 @@ def raster_triangle_affine(triangle: TriangleToRasterize, colorbuffer: np.ndarra
             gamma = implicit_line(x, y, triangle.v0.position, triangle.v1.position) * one_over_v2_to_line01
 
             # if pixel (x, y) is inside the triangle or on one of its edges
-            if alpha >= 0 and beta >= 0 and gamma >= 0:
+            if alpha >= 0 and beta >= 0 and gamma >= 0 and 1 - alpha - beta - gamma < 0.001:
                 pixel_index_row = yi
                 pixel_index_col = xi
 
                 z_affine = alpha * triangle.v0.position[2] + triangle.v1.position[2] + triangle.v2.position[2]
+                if z_affine > depthbuffer[pixel_index_row, pixel_index_col]:
+                    continue
                 # attributes interpolation
                 # pixel_color is in RGB, v.color are RGB
                 pixel_color = alpha * triangle.v0.color + beta * triangle.v1.color + gamma * triangle.v2.color
@@ -250,7 +252,7 @@ def render_affine(mesh: Mesh.Mesh, affine_camera_matrix: np.ndarray, viewport_wi
             continue
 
         t = TriangleToRasterize(projected_vertices[0], projected_vertices[1], projected_vertices[2],
-                                bounding_box[0], bounding_box[2], bounding_box[1], bounding_box[4])
+                                bounding_box[0], bounding_box[2], bounding_box[1], bounding_box[3])
 
         raster_triangle_affine(t, colorbuffer, depthbuffer)
     return colorbuffer, depthbuffer
@@ -371,15 +373,18 @@ def get_affine_transform(src: np.ndarray, dst: np.ndarray) -> np.ndarray:
     """
     assert len(src) == len(dst) and len(src) == 3
 
-    a = np.zeros([6, 6])
-    b = np.zeros(6)
+#    a = np.zeros([6, 6])
+#    b = np.zeros(6)
 
-    a[0::2, :3] = np.hstack([src, np.ones([3, 1])])
-    a[1::2, 3:] = np.hstack([src, np.ones([3, 1])])
-    b = b.reshape([6])
+#    a[0::2, :3] = np.hstack([src, np.ones([3, 1])])
+#    a[1::2, 3:] = np.hstack([src, np.ones([3, 1])])
+#    b = b.reshape([6])
 
-    x = np.linalg.lstsq(a, b)[0]
-    x.reshape([2, 3])
+#    x = np.linalg.lstsq(a, b)[0]
+#    x = np.reshape(x, (2, 3))
+    pts1 = np.float32([[src[0][0], src[0][1]], [src[1][0], src[1][1]], [src[2][0], src[2][1]]])
+    pts2 = np.float32([[dst[0][0], dst[0][1]], [dst[1][0], dst[1][1]], [dst[2][0], dst[2][1]]])
+    x = cv2.getAffineTransform(pts1, pts2)
     return x
 
 
@@ -492,8 +497,8 @@ def extract_tecture(mesh: Mesh.Mesh, affine_camera_matrix: np.ndarray, image: np
 
         # We now loop over all pixels in the triangle and select, depending on the mapping type, the
         # corresponding texel(s) in the source image
-        for x in range(np.min(dst_tri[:, 0]), np.max(dst_tri[:, 0])):
-            for y in range(np.min(dst_tri[:, 1]), np.max(dst_tri[:, 1])):
+        for x in range(int(np.min(dst_tri[:, 0])), int(np.max(dst_tri[:, 0]))):
+            for y in range(int(np.min(dst_tri[:, 1])), int(np.max(dst_tri[:, 1]))):
                 if is_point_in_triangle(np.array([x, y]), dst_tri[0], dst_tri[1], dst_tri[2]):
                     # As the coordinates of the transformed pixel in the image will most likely not lie
                     # on a texel, we have to choose how to calculate the pixel colors depending on the next texels
@@ -594,7 +599,7 @@ def extract_tecture(mesh: Mesh.Mesh, affine_camera_matrix: np.ndarray, image: np
 
                         if round(src_texel[1]) < np.shape(image)[0] and round(src_texel[1]) < np.shape(image)[1] \
                                 and round(src_texel[0]) > 0 and round(src_texel[1]) > 0:
-                            isomap[y, x, :3] = image[round(src_texel[1]), round(src_texel[0])]
+                            isomap[y, x, :3] = image[int(round(src_texel[1])), int(round(src_texel[0]))]
                             isomap[y, x, 3] = np.uint8(alpha_value)
 
     return isomap
