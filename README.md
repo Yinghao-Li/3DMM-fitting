@@ -1,5 +1,8 @@
 # 3DMM-fitting
 
+![Maintenance](https://img.shields.io/badge/Maintained%3F-no-red.svg)
+------
+
 This project is designed to fit a 3DMM to a frontal-face picture profile and a profile picture of the same person simultaneously. This is supposed to lead to a more reliable fitting result than the traditional way in which only one frontal face picture is used, since we acquired additional depth information from the extra profile image.
 
 To add more "automation" flavour to the project, We also introduced landmark regression technique to generated landmarks used for 3DMM-fitting. It should be noticed that the frontal face landmark detection technique is quite mature, so we directly used Dlib-Python to realize the function. However, the profile landmark detection has not been introduced as frequently, and there is no available annotated profile database on Internet. After annotating a subset of profile faces of FERET by ourselves, we compared some techniques such as CNN and AAM, and found out AAM gave the best performance on the limited training set. So we eventually chose to use Dlib-Python to do the frontal face landmark regression, profile face bounding box location model generating and profile face detection; and to use AAM provided by menpo project to do the profile landmark regression.
